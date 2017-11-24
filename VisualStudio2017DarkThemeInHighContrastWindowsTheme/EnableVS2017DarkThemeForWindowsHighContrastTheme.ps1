@@ -24,7 +24,8 @@ CheckExitCode
 write-host 'Exporting Visual Studio dark theme registry key...'
 $ExportKeyFilename = $env:TEMP + '\exportedkey.bak.reg'
 $ImportKeyFilename = $env:TEMP + '\importedkey.reg'
-reg export 'HKEY_LOCAL_MACHINE\HKEY_TEMPVS\Software\Microsoft\VisualStudio\15.0_0202864a_Config\Themes\{1ded0138-47ce-435e-84ef-9ec1f439b749}' $ExportKeyFilename /y
+$exportedKeyPath = 'HKEY_LOCAL_MACHINE\HKEY_TEMPVS\Software\Microsoft\VisualStudio\' + $VSVersion + '_Config\Themes\{1ded0138-47ce-435e-84ef-9ec1f439b749}' 
+reg export $exportedKeyPath $ExportKeyFilename /y
 CheckExitCode
 
 write-host 'Replacing VS dark theme guid with windows high contrast theme guid...'
