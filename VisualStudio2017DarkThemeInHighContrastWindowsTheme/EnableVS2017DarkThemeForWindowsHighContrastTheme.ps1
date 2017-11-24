@@ -1,4 +1,5 @@
 ﻿## This script will allow you to still use Visual Studio Dark Theme even in Windows High Contrast Theme 
+## Needs to be run in administrator mode
 
 #modify this 
 $VSVersion = '15.0_0202864a'
