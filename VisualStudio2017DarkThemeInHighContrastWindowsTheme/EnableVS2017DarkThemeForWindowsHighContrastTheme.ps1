@@ -7,7 +7,6 @@ $VSVersion = '15.0_0202864a'
 # load VS private registry 
 $binLocation = $env:LOCALAPPDATA + '\Microsoft\VisualStudio\'+ $VSVersion +'\privateregistry.bin'
 $HiveKey = 'HKLM\HKEY_TEMPVS\'
-$Name = "VS2017PrivateRegistry"
 reg load $HiveKey $binLocation
 
 # export Visual Studio dark theme registry key
