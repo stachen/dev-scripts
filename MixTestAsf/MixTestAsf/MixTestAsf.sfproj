@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotNetActor\DotNetActor.csproj" />
+    <ProjectReference Include="..\DotNetCoreStateful\DotNetCoreStateful.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

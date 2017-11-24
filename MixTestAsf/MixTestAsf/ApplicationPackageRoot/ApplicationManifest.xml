@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="MixTestAsfType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
+    <Parameter Name="DotNetCoreStateful_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="DotNetCoreStateful_PartitionCount" DefaultValue="1" />
+    <Parameter Name="DotNetCoreStateful_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="DotNetActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="DotNetActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="DotNetActorService_TargetReplicaSetSize" DefaultValue="3" />
@@ -9,9 +12,18 @@
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="DotNetCoreStatefulPkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="DotNetActorPkg" ServiceManifestVersion="1.0.0" />
   </ServiceManifestImport>
   <DefaultServices>
+    <Service Name="DotNetCoreStateful" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="DotNetCoreStatefulType" TargetReplicaSetSize="[DotNetCoreStateful_TargetReplicaSetSize]" MinReplicaSetSize="[DotNetCoreStateful_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[DotNetCoreStateful_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
     <Service Name="DotNetActorService" GeneratedIdRef="71d9e3d3-d5a1-4c2b-acb1-23d36dff33fa|Persisted">
       <StatefulService ServiceTypeName="DotNetActorServiceType" TargetReplicaSetSize="[DotNetActorService_TargetReplicaSetSize]" MinReplicaSetSize="[DotNetActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[DotNetActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
